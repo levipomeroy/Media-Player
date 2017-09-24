@@ -1,0 +1,344 @@
+﻿<Window x:Class="Media_player.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Media_player"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        mc:Ignorable="d"
+        x:Name="myWindow"
+      
+        Title="LP Media Player" Height="412.129" Width="706.162" MouseMove="Window_MouseMove"
+        Background="Black" StateChanged="myWindow_StateChanged" PreviewKeyDown="myWindow_PreviewKeyDown">
+
+       
+    <Window.Resources>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                        VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="IsTabStop" Value="false" />
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border  BorderThickness="1" BorderBrush="Gray" Background="Gray" Height="3"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderRepeatButton1" TargetType="RepeatButton">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border SnapsToDevicePixels="True" Background="Blue"  BorderThickness="1" BorderBrush="Cyan" Height="3"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SliderThumb" TargetType="Thumb">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Ellipse Height="10" Width="10" Fill="Blue"></Ellipse>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate x:Key="SliderTemp"  TargetType="Slider">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Track Grid.Row="1" x:Name="PART_Track"   >
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton1}"  Command="Slider.DecreaseLarge" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource SliderThumb}"  />
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Style="{StaticResource SliderRepeatButton}" Command="Slider.IncreaseLarge" />
+                    </Track.IncreaseRepeatButton>
+                </Track>
+            </Grid>
+        </ControlTemplate>
+
+        <Style x:Key="Horizontal_Slider" TargetType="Slider">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="MinHeight" Value="21" />
+                    <Setter Property="MinWidth" Value="104" />
+                    <Setter Property="Template" Value="{StaticResource SliderTemp}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
+
+       
+    <Grid Background="Black" x:Name="layoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image Visibility="Hidden" x:Name="PlayPic" Source="Images/play.png" />
+        <Image Visibility="Hidden" x:Name="BackPic" Source="Images/back2.png" />
+        <Image Visibility="Hidden" x:Name="FowardPic" Source="Images/foward.png" />
+        <Image Visibility="Hidden" x:Name="FullscreenPic" Source="Images/fullscreen7.png" />
+        <Image Visibility="Hidden" x:Name="LeftPic" Source="Images/Left.png" />
+        <Image Visibility="Hidden" x:Name="MutePic" Source="Images/mute2.png" />
+        <Image Visibility="Hidden" x:Name="PausePic" Source="Images/pause.png" />
+        <Image Visibility="Hidden" x:Name="RightPic" Source="Images/Right.png" />
+        <Image Visibility="Hidden" x:Name="RotatePic" Source="Images/rotate3.png" />
+        <Image Visibility="Hidden" x:Name="UnMutePic" Source="Images/unmute.png" />
+        <Image Visibility="Hidden" x:Name="UnscreenPic" Source="Images/Unscreen2.png" />
+        
+        <MediaElement 
+            Grid.Row="1" 
+            Source="Images/MusicVid.mp4"
+            x:Name="MusicElement"
+            Stretch="Fill"
+            LoadedBehavior="Manual"
+            Visibility="Hidden" 
+            IsMuted="True"
+            MediaEnded="MusicElement_MediaEnded"
+            Margin="0,0,0.333,0.333" 
+            Grid.RowSpan="2">
+        </MediaElement>
+
+        <Menu  x:Name="MyMenu"
+            Grid.Row="0" >
+            <MenuItem 
+                    ToolTip="Choose a file to view"
+                    Click="MenuItem_Click" Width="27">
+                <MenuItem.Icon>
+                    <Image Source="Images/load.png"/>
+                </MenuItem.Icon>
+            </MenuItem>
+
+            <MenuItem Header="View" ToolTip="Choose a viewing format">
+                <MenuItem x:Name="uniform"
+                    Header="Normal" 
+                          IsCheckable="True"
+                          IsChecked="True" Click="uniform_Click">
+                </MenuItem>
+                <MenuItem x:Name="fill"
+                    Header="Stretch"
+                           Click="uniform_Click"
+                          IsCheckable="True">
+                </MenuItem>
+                <MenuItem x:Name="toFill"
+                    Header="Super Stretch"
+                           Click="uniform_Click"
+                          IsCheckable="True">
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem 
+              x:Name="Speed"
+              Header="Speed">
+                <MenuItem
+                    IsCheckable="True"
+                    IsChecked="True"
+                    x:Name="Normal"
+                    Header="Normal speed"
+                    Click="Speed_Click"/>
+                <MenuItem
+                    IsCheckable="True"
+                    x:Name="Fast"
+                    Header="Faster (150%)"
+                    Click="Speed_Click"/>
+                <MenuItem
+                    IsCheckable="True"
+                    x:Name="Faster"
+                    Header="Super speed (250%)"
+                    Click="Speed_Click"/>
+                <MenuItem
+                    IsCheckable="True"
+                    x:Name="Slow"
+                    Header="Slow it down (50%)" 
+                    Click="Speed_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <MediaElement
+            x:Name="MediaView"   
+            Grid.Row="1"
+            Stretch="Uniform"
+            LoadedBehavior = "Manual" 
+                MediaOpened="MediaView_MediaOpened" 
+                Margin="0,0,0.333,0.333" 
+                Grid.RowSpan="2" MediaEnded="MediaView_MediaEnded">
+            <MediaElement.LayoutTransform>
+                <TransformGroup>
+                    <RotateTransform x:Name="rotater"/>
+                </TransformGroup>
+            </MediaElement.LayoutTransform>
+        </MediaElement>
+
+        <WrapPanel Grid.Row="2" x:Name="PicControl" VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="Hidden">
+            <Button 
+                x:Name="PrevPic"
+                Height="40"
+                BorderThickness="0"
+                Width="40" 
+                Click="PrevPic_Click"
+                ToolTip="View previous picture"
+                Style="{StaticResource MyButtonStyle}">
+            </Button>
+            <Button
+                x:Name="RotateBtn"
+                Height="30"
+                Width="30"
+                ToolTip="Rotate 90 degrees clockwise"
+                Style="{StaticResource MyButtonStyle}"
+                Margin="10,0,10,0"
+                BorderThickness="0" Click="RotateBtn_Click">
+            </Button>
+            <Button 
+                x:Name="NextPic"
+                Height="40"
+                BorderThickness="0"
+                Width="40" 
+                ToolTip="View next picture"
+                Click="NextPic_Click"
+                Style="{StaticResource MyButtonStyle}">
+            </Button>
+        </WrapPanel>
+        
+        <Grid x:Name="ControlBar" Grid.Row="2" Grid.Column="0"
+              Panel.ZIndex="99" HorizontalAlignment="Center">
+            <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Margin="6,-20,6,0" x:Name="ControlBarPanel">
+                <WrapPanel Grid.Column="0" HorizontalAlignment="Stretch" Height="44" x:Name="ControlBarPanelsPanel">
+                    <Button
+                        Style="{StaticResource MyButtonStyle}"
+                        ToolTip="Skip backward 30 seconds"
+                        x:Name="SkipBack"
+                        VerticalAlignment="Bottom"
+                        Width="25"
+                        Height="25"
+                        BorderThickness="0"
+                        Margin="300,0,0,0"
+                        Click="SkipBack_Click">
+                    </Button>
+                    <Button
+                        Style="{StaticResource MyButtonStyle}"
+                        x:Name="PlayOrPause"
+                        ToolTip="Play the video"
+                        VerticalAlignment="Bottom"
+                        Width="35" 
+                        Height="25"
+                        Click="PlayOrPause_Click"
+                        BorderThickness="0">
+                    </Button>
+                    <Button
+                        Style="{StaticResource MyButtonStyle}"
+                        ToolTip="Skip foward 30 seconds"
+                        VerticalAlignment="Bottom"
+                        x:Name="SkipFoward"
+                        Width="25"
+                        Height="25"
+                        BorderThickness="0"
+                        Click="SkipFoward_Click">
+                    </Button>
+
+                    <WrapPanel x:Name="VolumeLayout">
+                        <Button 
+                        Style="{StaticResource MyButtonStyle}"
+                        x:Name="muteBtn"
+                            Margin="90,0,5,0"
+                            Height="20"
+                            Width="20"
+                            BorderThickness="0"
+                            ToolTip="Mute"
+                            VerticalAlignment="Bottom" 
+                            Click="muteBtn_Click">
+                    </Button>
+                    <StackPanel>
+                        <Label
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="Volume" Foreground="White"/>
+                        <Slider
+                        x:Name="VolumeSlider"
+                        Width="100" 
+                            IsMoveToPointEnabled="True"
+                        Style="{StaticResource Horizontal_Slider}"
+                        Maximum="100"
+                        VerticalAlignment="Center"
+                        ValueChanged="Slider_ValueChanged">
+                        </Slider>
+                    </StackPanel>
+                    <Button 
+                        Style="{StaticResource MyButtonStyle}"
+                        ToolTip="Fullscreen"
+                        Margin="20,0,0,0"
+                        x:Name="FullScreenBtn"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Width="25"
+                        Height="25"
+                        BorderThickness="0"
+                        Click="FullScreenBtn_Click">
+                    </Button>
+                    </WrapPanel>
+                </WrapPanel>
+                <WrapPanel x:Name="timestuff" HorizontalAlignment="Center" >
+                    <Label 
+                        VerticalAlignment="Center"
+                        x:Name="CurrentTime" 
+                        Foreground="White"
+                        
+                        Content="00:00:00"/>
+                    <Slider
+                        x:Name="timprogress"
+                        VerticalAlignment="Center"
+                        Width="500"
+                        IsMoveToPointEnabled="True"
+                        Style="{StaticResource Horizontal_Slider}"
+                        PreviewMouseLeftButtonUp="timprogress_PreviewMouseLeftButtonUp">
+
+                    </Slider>
+                    <Label 
+                        VerticalAlignment="Center"
+                        x:Name="TotalTime"
+                        Foreground="White"
+                        Content="00:00:00"/>
+                </WrapPanel>
+            </StackPanel>
+        </Grid>
+        
+
+    </Grid>
+</Window>
