@@ -56,4 +56,11 @@ Note: The controls disappear when not moving the mouse.
   ## Music Controls
    * Plays animation of music on loop for as long as music plays
    * Controls mimic the video controls
+   <br></br>
+       <br></br>
+       <br></br>
+       <br></br>
+       
+Note: I do not have rights for any movie displayed here or any of the images within the project.
+The project is for personal use only and I have no intend to redistribute the content.
    
