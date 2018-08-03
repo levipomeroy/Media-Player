@@ -55,5 +55,5 @@ Note: The controls disappear when not moving the mouse.
     
   ## Music Controls
    * Plays animation of music on loop for as long as music plays
-   * controls mimic the video controls
+   * Controls mimic the video controls
    
