@@ -22,11 +22,37 @@ Custom media player for Windows built with WPF using C# and Xaml.
  <img src="https://github.com/levipomeroy/Media-Player/blob/master/Media%20player/PlayingMovie.PNG?raw=true" height="350" width="550"/>
   </div>
   <i>Playing a movie. </i>
+   <br></br>
   
-  <b></b>
-  <b></b>
+
    <div style="text-align: center">
  <img src="https://github.com/levipomeroy/Media-Player/blob/master/Media%20player/Fullscreen.PNG?raw=true" height="350" width="550"/>
   </div>
   <i>Fullcreen</i>
+    <br></br>
   
+Note: The controls disappear when not moving the mouse.
+  <br></br>
+
+
+<div style="text-align: center">
+ <img src="https://github.com/levipomeroy/Media-Player/blob/master/Images.PNG?raw=true" height="350" width="550"/>
+  </div>
+  <i>Images</i>
+  
+  ## Image Controls
+   * Clicking arrows moves to images in same directory as chosen image
+   * Middle button roates the image
+     <br></br>
+       <br></br>
+   
+   
+   <div style="text-align: center">
+ <img src="https://github.com/levipomeroy/Media-Player/blob/master/MusicControlls.PNG?raw=true" height="350" width="550"/>
+  </div>
+  <i>Music</i>
+    
+  ## Music Controls
+   * Plays animation of music on loop for as long as music plays
+   * controls mimic the video controls
+   
