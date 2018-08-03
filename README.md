@@ -41,8 +41,9 @@ Note: The controls disappear when not moving the mouse.
   <i>Images</i>
   
   ## Image Controls
-   * Clicking arrows moves to images in same directory as chosen image
-   * Middle button roates the image
+   * Clicking arrows moves to next/previous image in the same directory as chosen image
+   * Left and Right arrow move to next/previous image as well
+   * Middle button rotates the image
      <br></br>
        <br></br>
    
